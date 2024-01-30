@@ -31,9 +31,13 @@ int _printf(const char *format, ...)
 				case '%':
 					counts += putchar('%');
 					break;
+				case ' ':
+
+				putchar(' ');
 				default:
 					counts += putchar('%');
 					counts += putchar(*format);
+					break;
 			}
 		}
 		else
