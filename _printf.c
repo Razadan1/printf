@@ -9,7 +9,8 @@
 int _printf(const char *format, ...)
 {
 	va_list arg_lists;
-	va_start (arg_lists, format);
+
+	va_start(arg_lists, format);
 
 	int counts = 0;
 
@@ -26,13 +27,15 @@ int _printf(const char *format, ...)
 				case 's':
 					{
 						const char *str = va_args(arg_lists, const char *);
+
 						counts += write(1, str, strlen(str));
 					}
 					break;
 				case '%':
 					counts += write(1, "%", 1);
 					break;
-				defaults:
+				default:
+
 					break;
 			}
 		}
