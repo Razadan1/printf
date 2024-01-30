@@ -1,18 +1,19 @@
 #include "main.h"
+#include <stdio.h>
+#include <stdarg.h>
 
 /**
- * _printf -  this produces output according to the format
+ * _printf - prints the output according to a format
  *
- * @format: the formats
- * Return: return char
+ * @format: the format
+ * Return: retunr nothing
  */
 int _printf(const char *format, ...)
 {
-	va_list arg_lists;
-
-	va_start(arg_lists, format);
-
+	va_list arglists;
 	int counts = 0;
+
+	va_start(arglists, format);
 
 	while (*format != '\0')
 	{
@@ -22,29 +23,25 @@ int _printf(const char *format, ...)
 			switch (*format)
 			{
 				case 'c':
-					counts += write(1, &va_arg(arg_lists, int), 1);
+					counts += putchar(va_arg(arglists, int));
 					break;
 				case 's':
-					{
-						const char *str = va_args(arg_lists, const char *);
-
-						counts += write(1, str, strlen(str));
-					}
+					counts += printf("%s", va_arg(arglists, char *));
 					break;
 				case '%':
-					counts += write(1, "%", 1);
+					counts += putchar('%');
 					break;
 				default:
-
-					break;
+					counts += putchar('%');
+					counts += putchar(*format);
 			}
 		}
 		else
 		{
-			counts += write(1, format, 1);
+			counts += putchar(*format);
 		}
 		format++;
 	}
-	va_end(arg_lists);
+	va_end(arglists);
 	return (counts);
 }
