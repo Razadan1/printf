@@ -1,51 +1,45 @@
 #include "main.h"
-#include <stdio.h>
-#include <stdarg.h>
 
 /**
- * _printf - prints the output according to a format
- *
- * @format: the format
- * Return: retunr nothing
- */
+* _printf - produces output according to formats
+*
+* @format: the format
+*
+* Return: return the number of characters printed.
+*/
 int _printf(const char *format, ...)
 {
-	va_list arglists;
-	int counts = 0;
+	int prints = 0;
+	va_list arglist;
 
-	va_start(arglists, format);
+	va_start(arglist, format);
 
 	while (*format != '\0')
 	{
-		if (*format == '%')
-		{
-			format++;
-			switch (*format)
-			{
-				case 'c':
-					counts += putchar(va_arg(arglists, int));
-					break;
-				case 's':
-					counts += printf("%s", va_arg(arglists, char *));
-					break;
-				case '%':
-					counts += putchar('%');
-					break;
-				case ' ':
+		if (format[0] == '%' && !format[1])
+			return (-1);
+		if (format[0] == '%' && format[1] == ' ' && !format[2])
+			return (-1);
 
-				putchar(' ');
-				default:
-					counts += putchar('%');
-					counts += putchar(*format);
-					break;
+		if (format[0] == '%')
+		{
+			if (format[1] == 's')
+			{
+				const char *str = va_arg(arglist, const char*);
+
+				prints += write(1, str, strlen(str)), format += 2;
 			}
+			else if (format[1] == 'c')
+				prints += write(1, va_arg(arglist, char*), 1), format += 2;
+			else if (format[1] == '%')
+				prints += write(1, "%", 1), format += 2;
+			else
+				break;
 		}
 		else
-		{
-			counts += putchar(*format);
-		}
-		format++;
+			prints += write(1, format++, 1);
 	}
-	va_end(arglists);
-	return (counts);
+	va_end(arglist);
+
+	return (prints);
 }
