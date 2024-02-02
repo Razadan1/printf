@@ -1,35 +1,28 @@
 #ifndef MAIN_H
 #define MAIN_H
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
+
 #include <stdarg.h>
+#include <stdint.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include <unistd.h>
 
-/*Struct*/
 /**
- * struct specifier - structure for the project
- *
- * @func: the pointer function
- * @values: the values
- * Return: return nothing
-*/
-
-typedef struct specifier
+ * struct convert - Struct to match the corresponding function.
+ * @sp: The specifier symbol.
+ * @f: The corresponding function for the conversion specifier
+ */
+struct convert
 {
-	char *values;
-	int (*func)(va_list);
-} specifier;
+	char *sp;
+	int (*f)(va_list);
+};
+typedef struct convert conver_t;
 
-int _printf(const char *format, ...);
-int specifierArray(const char *ch, int ind, va_list arglist);
-
-/*****FUNCTIONS****/
 int _putchar(char c);
-int check_per(va_list type);
-int check_c(va_list type);
-int check_s(va_list type);
+int _printf(const char *format, ...);
+int print_char(va_list args);
+int print_string(va_list args);
+int print_int(va_list args);
 
-
-
-#endif /*MAIN_H*/
+#endif
