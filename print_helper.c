@@ -12,18 +12,7 @@ int print_char(va_list args)
 
 	return (write(1, &c, 1));
 }
-/**
- * print_per - Prints a character.
- * @args: The arguments passed to the _printf function.
- *
- * Return: The number of characters.
- */
-int print_per(va_list args)
-{
-	(void)args;
 
-	return (write(1, "&", 1));
-}
 /**
  * print_string - Prints a string.
  * @args: The arguments passed to the _printf function.
@@ -40,7 +29,7 @@ int print_string(va_list args)
 
 	while (*str)
 		count += write(1, str++, 1);
-	
+
 	return (count);
 }
 
@@ -60,21 +49,34 @@ int print_int(va_list args)
 
 	if (n == 0)
 		return (write(1, "0", 1));
-	
+
 	if (n < 0)
 	{
 		count += write(1, "-", 1);
 		tmp = -tmp;
 	}
-	
+
 	while (tmp > 0)
 	{
 		num[len++] = (tmp % 10) + '0';
 		tmp /= 10;
 	}
-	
+
 	while (len--)
 		count += write(1, &num[len], 1);
-	
+
+	return (count);
+}
+
+/**
+ * print_percent - Print a percent symbol
+ * @args: The argument list (unused)
+ * Return: The number of characters printed
+ */
+int print_percent(__attribute__((unused)) va_list args)
+{
+	int count = 0;
+
+	count = _putchar('%');
 	return (count);
 }
