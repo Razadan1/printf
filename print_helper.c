@@ -12,7 +12,18 @@ int print_char(va_list args)
 
 	return (write(1, &c, 1));
 }
+/**
+ * print_per - Prints a character.
+ * @args: The arguments passed to the _printf function.
+ *
+ * Return: The number of characters.
+ */
+int print_per(va_list args)
+{
+	(void)args;
 
+	return (write(1, "&", 1));
+}
 /**
  * print_string - Prints a string.
  * @args: The arguments passed to the _printf function.
