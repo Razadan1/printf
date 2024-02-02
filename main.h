@@ -22,8 +22,8 @@ typedef struct convert conver_t;
 int _putchar(char c);
 int _printf(const char *format, ...);
 int print_char(va_list args);
-int print_percent(__attribute__((unused)) va_list args);
 int print_string(va_list args);
 int print_int(va_list args);
+int print_percent(__attribute__((unused)) va_list args);
 
 #endif
