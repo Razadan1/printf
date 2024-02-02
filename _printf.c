@@ -9,6 +9,7 @@
 int _printf(const char *format, ...)
 {
 	conver_t specifiers[] = {
+		{"%", print_percent},
 		{"c", print_char},
 		{"s", print_string},
 		{"d", print_int},
